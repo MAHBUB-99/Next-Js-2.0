@@ -33,7 +33,7 @@ export default async function PhotoDetails({ id, lang }) {
             <span className="font-bold">{photo.share}</span>
           </div>
           <div className="flex justify-between">
-            <span>Up loaded</span>
+            <span>{dictionary.uploadedOn}</span>
             <span className="font-bold">{photo.uploaded}</span>
           </div>
         </div>
@@ -43,7 +43,7 @@ export default async function PhotoDetails({ id, lang }) {
             <div className="flex items-center gap-3">
               <Image
                 className="size-12 lg:size-14 rounded-full border"
-                src="https://i.pravatar.cc/150?img=53"
+                src={photo.author?.avatar}
                 alt="avatar"
                 width={50}
                 height={50}
