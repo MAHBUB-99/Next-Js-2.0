@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import localFont from "next/font/local";
 import "./globals.css";
+import { dbConnect } from "@/database/service/mongo";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,6 +20,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  dbConnect();
   return (
     <html lang="en">
       <body
