@@ -1,4 +1,4 @@
-import { hotelModel } from "@/models/hotel-model";
+import { hotelModel } from "@/database/models/hotel-model";
 import { replaceMongoIdInArray } from "@/database/utils/data-util";
 
 export async function getAllHotels() {

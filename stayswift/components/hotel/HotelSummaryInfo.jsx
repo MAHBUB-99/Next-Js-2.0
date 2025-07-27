@@ -1,4 +1,4 @@
-const HotelSummaryInfo = ({fromListPage}) => {
+const HotelSummaryInfo = ({fromListPage,hotel}) => {
   return (
     <>
       <div className={fromListPage ? "flex-1" : "flex-1 container"}>
