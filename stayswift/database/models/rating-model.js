@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose";
-
-const ratingSchma = new Schema({
+import { ObjectId } from "mongodb";
+const ratingSchema = new Schema({
   hotelId: {
     required: true,
     type: ObjectId
