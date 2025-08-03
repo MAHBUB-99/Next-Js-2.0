@@ -26,7 +26,7 @@ const Search = ({ fromList, destination, checkin, checkout }) => {
     }
 
     setSearchTerm(state);
-    console.log(state);
+    // console.log(state);
   };
   const doSearch = (e) => {
     const params = new URLSearchParams(searchParams);
