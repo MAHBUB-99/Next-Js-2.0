@@ -1,6 +1,43 @@
-const PaymentForm = ({checkin,checkout}) => {
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const PaymentForm = ({ loggedInUser, hotelInfo, checkin, checkout, cost }) => {
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.currentTarget);
+      
+      const hotelId = hotelInfo?.id;
+      const userId = loggedInUser?.id;
+      const checkin = formData.get("checkin");
+      const checkout = formData.get("checkout");
+
+      const res = await fetch("/api/auth/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          hotelId,
+          userId,
+          checkin,
+          checkout,
+        }),
+      });
+
+      res.status === 201 && router.push("/bookings");
+    } catch (error) {
+      console.error(error);
+      setError(error.message);
+    }
+  }
   return (
-    <form className="my-8">
+    <form className="my-8" onSubmit={onSubmit}>
       <div className="my-4 space-y-2">
         <label htmlFor="name" className="block">
           Name
@@ -8,6 +45,7 @@ const PaymentForm = ({checkin,checkout}) => {
         <input
           type="text"
           id="name"
+          value={loggedInUser?.name}
           className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
         />
       </div>
@@ -19,6 +57,7 @@ const PaymentForm = ({checkin,checkout}) => {
         <input
           type="email"
           id="email"
+          value={loggedInUser?.email}
           className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
         />
       </div>
@@ -71,7 +110,7 @@ const PaymentForm = ({checkin,checkout}) => {
       </div>
 
       <button type="submit" className="btn-primary w-full">
-        Pay Now ($10)
+        Pay Now (${cost})
       </button>
     </form>
   );

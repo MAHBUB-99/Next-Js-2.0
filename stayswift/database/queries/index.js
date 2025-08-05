@@ -7,6 +7,7 @@ import {
 import { bookingModel } from "../models/booking-model";
 import { ratingModel } from "../models/rating-model";
 import { reviewModel } from "../models/review-model";
+import { userModel } from "../models/user-model";
 
 export async function getAllHotels(destination, checkin, checkout) {
   const regex = new RegExp(destination, "i");
@@ -48,7 +49,9 @@ async function findBooking(hotelId,checkin,checkout) {
   const found = matches.find((match) => {
     return (
       isDateInbetween(checkin, match.checkin, match.checkout) ||
-      isDateInbetween(checkout, match.checkin, match.checkout)
+      isDateInbetween(checkout, match.checkin, match.checkout) ||
+      isDateInbetween(match.checkin,checkin,checkout) ||
+      isDateInbetween(match.checkout,checkin,checkout)
     );
   });
   return found;
@@ -74,4 +77,15 @@ export async function getRatingsForAHotel(hotelId) {
 export async function getReviewsForAHotel(hotelId) {
   const reviews = await reviewModel.find({ hotelId: hotelId }).lean();
   return replaceMongoIdInArray(reviews);
+}
+
+export async function getUserByEmail(email) {
+  const user = await userModel.find({email:email}).lean();
+  return replaceMongoIdInObject(user[0]);
+  
+}
+
+export async function getBookingsByUser(userId){
+  const bookings = await bookingModel.find({userId: userId}).lean();
+  return replaceMongoIdInArray(bookings);
 }
