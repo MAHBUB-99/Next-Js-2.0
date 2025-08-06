@@ -1,9 +1,9 @@
 import HotelList from "@/components/hotel/HotelList";
-import Filter from "@/components/search/Filter";
+import Filter from "@/components/search/filter/Filter";
 import Search from "@/components/search/Search";
 
 export default function HotelListPage({
-  searchParams: { destination, checkin, checkout },
+  searchParams: { destination, checkin, checkout, category },
 }) {
   return (
     <>
@@ -24,6 +24,7 @@ export default function HotelListPage({
             destination={destination}
             checkin={checkin}
             checkout={checkout}
+            category={category}
           />
         </div>
       </section>
